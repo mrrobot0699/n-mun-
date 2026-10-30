@@ -1,0 +1,40 @@
+DEBİTOR-KREDİTOR PROQRAMI
+=========================
+
+QURAŞDIRMA (bir dəfə)
+1. Python 3.9+ quraşdırın (python.org; "Add Python to PATH" qeyd edin).
+2. CMD-də:  pip install openpyxl
+   (tkinter Windows üçün Python ilə birlikdə gəlir.)
+
+İSTİFADƏ
+1. debitor_kreditor.py faylına iki dəfə basın (və ya CMD-də: python debitor_kreditor.py).
+2. sablonlar\ papkasındakı iki şablonu doldurun:
+     sablon_qaime.xlsx   -> Növ: Satış / Alış          -> qaimeler\ papkasına qoyun
+     sablon_odenis.xlsx  -> Növ: Daxil olan / Çıxan    -> odenisler\ papkasına qoyun
+   (Bank çıxarışlarını da eyni şablonla odenisler\ papkasına qoyun.)
+3. "Papkaları yenilə" basın. Yalnız yeni/dəyişmiş fayllar oxunur.
+4. Debitor və Kreditor vərəqlərində qalıqlar görünür.
+   - Sətrə iki dəfə basın: tərəfin hesablaşma çıxarışı (Excelə ixrac olunur).
+   - "Tarixə qalıq": məs. 31.12.2026 yazıb "Göstər" basın.
+   - "Excelə ixrac": Debitor + Kreditor cədvəlləri.
+
+HESABLAMA QAYDASI
+  Debitor qalıq  = Satış qaimələri  - Daxil olan ödənişlər
+  Kreditor qalıq = Alış qaimələri   - Çıxan ödənişlər
+  Qaytarılma: qaimə şablonunda Növ = "Satış qaytarılma" / "Alış qaytarılma", məbləği MÜSBƏT yazın
+  (mənfi yazsanız da proqram özü qaytarılma sayır). Ayrı sütunda müsbət görünür.
+  Debitor qalıq = Satış - Satış qaytarılma - Daxil olan; Kreditor qalıq = Alış - Alış qaytarılma - Çıxan.
+  Əsas və ƏDV ayrı sətirlərlə idxal olunur: şablonun "Əsas / ƏDV" sütununda Əsas və ya ƏDV seçin (qaimə və ödənişdə). Hərəkətdə hər biri ayrı sütundadır; qalıq da əsas və ƏDV üzrə. Sütun boşdursa məbləğ ƏDV daxil sayılıb "ƏDV %" (boşdursa 18) ilə ayrılır.
+  İlkin qalıq üçün: köhnə tarixlə (məs. 31.12.2025) "Başlanğıc qalıq" sənəd nömrəsi ilə
+  Satış (debitor) və ya Alış (kreditor) sətri əlavə edin.
+
+QEYDLƏR
+- Faylı silsəniz və ya papkadan çıxarsanız, onun sətirləri bazadan da silinir.
+- Fayl dəyişdirilsə, həmin faylın sətirləri təzədən oxunur (dublikat yaranmır).
+- Eyni qaimə iki fərqli faylda olarsa proqram xəbərdarlıq edir (dublikat).
+- Fayllar yalnız .xlsx/.xlsm; "Data" vərəqi oxunur, sütun sırasını dəyişməyin.
+- Əmr sətri: --sablon, --yenile, --export hesabat.xlsx --tarix 31.12.2026
+
+EXE (Python quraşdırmadan işləmək)
+  exe_yarat.bat (Python olan hər hansı kompüterdə) və ya GitHub-da .github\workflows\build.yml -> DebitorKreditor.exe.
+  exe-ni Python olmayan kompüterə köçürüb birbaşa işlədin. Köhnə şablonlarınız da işləyir.
